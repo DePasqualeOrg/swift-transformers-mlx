@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.1
 
 import PackageDescription
 
@@ -15,8 +15,8 @@ let package = Package(
         .library(name: "MLXEmbeddersTransformers", targets: ["MLXEmbeddersTransformers"]),
     ],
     dependencies: [
-        // TODO: Change to ml-explore/mlx-swift-lm before PR #118 is merged
-        .package(url: "https://github.com/DePasqualeOrg/mlx-swift-lm.git", branch: "swift-tokenizers"),
+        // TODO: Switch from this pinned revision to a major-version dependency once mlx-swift-lm publishes a release that includes PR #118.
+        .package(url: "https://github.com/ml-explore/mlx-swift-lm.git", revision: "8c9dd6391139242261bcf27d253c326f9cf2d567"),
         // TODO: Change to from: "x.y.z" when a swift-transformers release includes
         // commit e5e227b / swift-huggingface support.
         .package(url: "https://github.com/huggingface/swift-transformers.git", revision: "e5e227b"),
