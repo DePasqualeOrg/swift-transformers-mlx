@@ -79,15 +79,21 @@ Integration tests for inference and benchmarks are included.
 
 ## Benchmarks
 
-The benchmarks use tests from MLX Swift LM and can be run from this package in Xcode.
-
-These results were observed on an M3 MacBook Pro.
-
-| Benchmark | Swift Tokenizers median | Swift Transformers median | Swift Transformers Performance |
+| | Swift Transformers | Swift Tokenizers | |
 | --- | ---: | ---: | --- |
-| Tokenizer load | 289.6 ms | 1004.6 ms | 3.47x slower |
-| Tokenization | 53.0 ms | 105.8 ms | 2.00x slower |
-| Decoding | 28.9 ms | 48.4 ms | 1.67x slower |
-| LLM load | 318.8 ms | 1033.5 ms | 3.24x slower |
-| VLM load | 367.9 ms | 1081.5 ms | 2.94x slower |
-| Embedding load | 310.7 ms | 1023.5 ms | 3.29x slower |
+| Tokenizer load | 399.3 ms | 177.5 ms | 2.2x faster |
+| Tokenization | 48.4 ms | 23.7 ms | 2.0x faster |
+| Decoding | 30.9 ms | 15.7 ms | 2.0x faster |
+| LLM load | 409.7 ms | 197.4 ms | 2.1x faster |
+| VLM load | 441.6 ms | 223.2 ms | 2.0x faster |
+| Embedding load | 412.0 ms | 193.8 ms | 2.1x faster |
+
+These results were observed on an M3 MacBook Pro using Swift Tokenizers [`0.3.1`](https://github.com/DePasqualeOrg/swift-tokenizers/releases/tag/0.3.1), Swift Transformers [`1.3.0`](https://github.com/huggingface/swift-transformers/releases/tag/1.3.0), and MLX Swift LM `8c9dd63`.
+
+### Running benchmarks
+
+The benchmarks use tests from MLX Swift LM and can be run from this package in Xcode or from the command line with `xcodebuild`:
+
+```bash
+xcodebuild test -scheme swift-transformers-mlx-Package -configuration Release -destination 'platform=macOS,arch=arm64' -only-testing:Benchmarks
+```
