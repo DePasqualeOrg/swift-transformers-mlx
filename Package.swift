@@ -17,9 +17,7 @@ let package = Package(
     dependencies: [
         // TODO: Switch from this pinned revision to a major-version dependency once mlx-swift-lm publishes a release that includes PR #118.
         .package(url: "https://github.com/ml-explore/mlx-swift-lm.git", revision: "8c9dd6391139242261bcf27d253c326f9cf2d567"),
-        // TODO: Change to from: "x.y.z" when a swift-transformers release includes
-        // commit e5e227b / swift-huggingface support.
-        .package(url: "https://github.com/huggingface/swift-transformers.git", revision: "e5e227b"),
+        .package(url: "https://github.com/huggingface/swift-transformers.git", from: "1.3.0"),
         .package(url: "https://github.com/huggingface/swift-huggingface.git", from: "0.8.1"),
     ],
     targets: [
