@@ -2,6 +2,50 @@
 
 import PackageDescription
 
+var packageTargets: [Target] = [
+    .target(
+        name: "MLXLMTransformers",
+        dependencies: [
+            .product(name: "MLXLMCommon", package: "mlx-swift-lm"),
+            .product(name: "Transformers", package: "swift-transformers"),
+        ]
+    ),
+    .target(
+        name: "MLXEmbeddersTransformers",
+        dependencies: [
+            .product(name: "MLXEmbedders", package: "mlx-swift-lm"),
+            .product(name: "MLXLMCommon", package: "mlx-swift-lm"),
+            "MLXLMTransformers",
+        ]
+    ),
+    .target(
+        name: "TestHelpers",
+        dependencies: [
+            .product(name: "HuggingFace", package: "swift-huggingface"),
+            .product(name: "MLXLMCommon", package: "mlx-swift-lm"),
+        ],
+        path: "Tests/TestHelpers"
+    ),
+    .testTarget(
+        name: "Benchmarks",
+        dependencies: [
+            "MLXLMTransformers",
+            "TestHelpers",
+            .product(name: "HuggingFace", package: "swift-huggingface"),
+            .product(name: "BenchmarkHelpers", package: "mlx-swift-lm"),
+        ]
+    ),
+    .testTarget(
+        name: "IntegrationTests",
+        dependencies: [
+            "MLXLMTransformers",
+            "TestHelpers",
+            .product(name: "HuggingFace", package: "swift-huggingface"),
+            .product(name: "IntegrationTestHelpers", package: "mlx-swift-lm"),
+        ]
+    ),
+]
+
 let package = Package(
     name: "swift-transformers-mlx",
     platforms: [
@@ -16,51 +60,12 @@ let package = Package(
     ],
     dependencies: [
         // TODO: Switch from this pinned revision to a major-version dependency once mlx-swift-lm publishes a release that includes PR #118.
-        .package(url: "https://github.com/ml-explore/mlx-swift-lm.git", revision: "8c9dd6391139242261bcf27d253c326f9cf2d567"),
+        .package(
+            url: "https://github.com/ml-explore/mlx-swift-lm.git",
+            revision: "89de43c6c8c36f037da3db22230fa5356463b594"
+        ),
         .package(url: "https://github.com/huggingface/swift-transformers.git", from: "1.3.0"),
         .package(url: "https://github.com/huggingface/swift-huggingface.git", from: "0.8.1"),
     ],
-    targets: [
-        .target(
-            name: "MLXLMTransformers",
-            dependencies: [
-                .product(name: "MLXLMCommon", package: "mlx-swift-lm"),
-                .product(name: "Transformers", package: "swift-transformers"),
-            ]
-        ),
-        .target(
-            name: "MLXEmbeddersTransformers",
-            dependencies: [
-                .product(name: "MLXEmbedders", package: "mlx-swift-lm"),
-                .product(name: "MLXLMCommon", package: "mlx-swift-lm"),
-                "MLXLMTransformers",
-            ]
-        ),
-        .target(
-            name: "TestHelpers",
-            dependencies: [
-                .product(name: "HuggingFace", package: "swift-huggingface"),
-                .product(name: "MLXLMCommon", package: "mlx-swift-lm"),
-            ],
-            path: "Tests/TestHelpers"
-        ),
-        .testTarget(
-            name: "IntegrationTests",
-            dependencies: [
-                "MLXLMTransformers",
-                "TestHelpers",
-                .product(name: "HuggingFace", package: "swift-huggingface"),
-                .product(name: "IntegrationTestHelpers", package: "mlx-swift-lm"),
-            ]
-        ),
-        .testTarget(
-            name: "Benchmarks",
-            dependencies: [
-                "MLXLMTransformers",
-                "TestHelpers",
-                .product(name: "HuggingFace", package: "swift-huggingface"),
-                .product(name: "BenchmarkHelpers", package: "mlx-swift-lm"),
-            ]
-        ),
-    ]
+    targets: packageTargets
 )

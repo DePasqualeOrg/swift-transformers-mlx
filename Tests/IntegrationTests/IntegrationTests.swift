@@ -1,13 +1,17 @@
+import Foundation
 import HuggingFace
 import IntegrationTestHelpers
 import MLXLMTransformers
 import TestHelpers
 import Testing
 
+private let integrationTestsEnabled =
+    ProcessInfo.processInfo.environment["TRANSFORMERS_MLX_ENABLE_INTEGRATION_TESTS"] == "1"
+
 private let models = IntegrationTestModels(
     downloader: HubClient.default, tokenizerLoader: TransformersLoader())
 
-@Suite(.serialized)
+@Suite(.serialized, .enabled(if: integrationTestsEnabled))
 struct IntegrationTests {
 
     // MARK: - ChatSession
@@ -56,11 +60,30 @@ struct IntegrationTests {
         try await ToolCallTests.lfm2EndToEndGeneration(container: models.lfm2Container())
     }
 
-    @Test func glm4FormatAutoDetection() async throws {
-        try await ToolCallTests.glm4FormatAutoDetection(container: models.glm4Container())
+    // Keep integration models at roughly 5 GB or less per repo.
+    // Larger models can exhaust RAM and crash lower-memory devices during load or inference.
+
+    @Test func mistral3FormatAutoDetection() async throws {
+        try await ToolCallTests.mistral3FormatAutoDetection(container: models.mistral3Container())
     }
 
-    @Test func glm4EndToEndGeneration() async throws {
-        try await ToolCallTests.glm4EndToEndGeneration(container: models.glm4Container())
+    @Test func mistral3EndToEndGeneration() async throws {
+        try await ToolCallTests.mistral3EndToEndGeneration(container: models.mistral3Container())
+    }
+
+    @Test func mistral3MultiToolGeneration() async throws {
+        try await ToolCallTests.mistral3MultiToolGeneration(container: models.mistral3Container())
+    }
+
+    @Test func qwen35FormatAutoDetection() async throws {
+        try await ToolCallTests.qwen35FormatAutoDetection(container: models.qwen35Container())
+    }
+
+    @Test func qwen35EndToEndGeneration() async throws {
+        try await ToolCallTests.qwen35EndToEndGeneration(container: models.qwen35Container())
+    }
+
+    @Test func qwen35MultiToolGeneration() async throws {
+        try await ToolCallTests.qwen35MultiToolGeneration(container: models.qwen35Container())
     }
 }

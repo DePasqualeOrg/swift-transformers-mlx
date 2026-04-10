@@ -75,7 +75,18 @@ let container = try await loadModelContainer(
 
 ## Testing
 
-Integration tests for inference and benchmarks are included.
+Benchmarks are included by default. Integration tests are opt-in and download models from Hugging Face on first run. The integration suite stays at roughly 5 GB or less per repository to avoid RAM issues on lower-memory devices.
+
+### Running integration tests
+
+In Xcode, set `TRANSFORMERS_MLX_ENABLE_INTEGRATION_TESTS=1` in the test scheme environment.
+
+From the command line, run MLX-backed tests with `xcodebuild` and the test-runner passthrough variable:
+
+```bash
+TEST_RUNNER_TRANSFORMERS_MLX_ENABLE_INTEGRATION_TESTS=1 \
+  xcodebuild test -scheme swift-transformers-mlx-Package -destination 'platform=macOS,arch=arm64' -only-testing:IntegrationTests
+```
 
 ## Benchmarks
 
