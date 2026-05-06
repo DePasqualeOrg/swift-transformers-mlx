@@ -92,14 +92,14 @@ TEST_RUNNER_TRANSFORMERS_MLX_ENABLE_INTEGRATION_TESTS=1 \
 
 | | Swift Transformers | Swift Tokenizers | |
 | --- | ---: | ---: | --- |
-| Tokenizer load | 399.3 ms | 177.5 ms | 2.2x faster |
-| Tokenization | 48.4 ms | 23.7 ms | 2.0x faster |
-| Decoding | 30.9 ms | 15.7 ms | 2.0x faster |
-| LLM load | 409.7 ms | 197.4 ms | 2.1x faster |
-| VLM load | 441.6 ms | 223.2 ms | 2.0x faster |
-| Embedding load | 412.0 ms | 193.8 ms | 2.1x faster |
+| Tokenizer load | 386.9 ms | 168.1 ms | 2.3x faster |
+| Tokenization | 29.1 ms | 4.5 ms | 6.5x faster |
+| Decoding | 35.1 ms | 3.9 ms | 9.0x faster |
+| LLM load | 416.9 ms | 183.8 ms | 2.3x faster |
+| VLM load | 465.5 ms | 225.8 ms | 2.1x faster |
+| Embedding load | 414.3 ms | 197.7 ms | 2.1x faster |
 
-These results were observed on an M3 MacBook Pro using Swift Tokenizers [`0.3.1`](https://github.com/DePasqualeOrg/swift-tokenizers/releases/tag/0.3.1), Swift Transformers [`1.3.0`](https://github.com/huggingface/swift-transformers/releases/tag/1.3.0), and MLX Swift LM `8c9dd63`.
+These results were observed on an M3 MacBook Pro using Swift Tokenizers [`0.5.0`](https://github.com/DePasqualeOrg/swift-tokenizers/releases/tag/0.5.0), Swift Transformers [`1.3.2`](https://github.com/huggingface/swift-transformers/releases/tag/1.3.2), and MLX Swift LM [`3.31.3`](https://github.com/ml-explore/mlx-swift-lm/releases/tag/3.31.3).
 
 ### Running benchmarks
 

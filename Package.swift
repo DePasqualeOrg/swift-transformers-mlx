@@ -44,6 +44,7 @@ var packageTargets: [Target] = [
             "TestHelpers",
             .product(name: "HuggingFace", package: "swift-huggingface"),
             .product(name: "IntegrationTestHelpers", package: "mlx-swift-lm"),
+            .product(name: "MLXLLM", package: "mlx-swift-lm"),
         ]
     ),
 ]
@@ -62,7 +63,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ml-explore/mlx-swift-lm.git", from: "3.31.3"),
-        .package(url: "https://github.com/huggingface/swift-transformers.git", from: "1.3.0"),
+        .package(url: "https://github.com/huggingface/swift-transformers.git", from: "1.3.2"),
         .package(url: "https://github.com/huggingface/swift-huggingface.git", from: "0.8.1"),
     ],
     targets: packageTargets
